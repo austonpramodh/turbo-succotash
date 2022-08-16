@@ -1,0 +1,8 @@
+{
+  "name": "turbo-succotash",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "libs/*"
+  ]
+}
