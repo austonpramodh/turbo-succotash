@@ -1,0 +1,7 @@
+{
+  "extends": "@turbo-succotash-libs/tsconfig/nestjs.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist"
+  }
+}
