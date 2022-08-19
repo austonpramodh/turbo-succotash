@@ -4016,6 +4016,11 @@ commander@^8.3.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
 
+commander@^9.4.0:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.0.tgz#bc4a40918fefe52e22450c111ecd6b7acce6f11c"
+  integrity sha512-sRPT+umqkz90UA8M1yqYfnHlZA7fF6nSphDtxeywPZ49ysjxDQybzk13CL+mXekDRG92skbcqCLVovuCusNmFw==
+
 common-path-prefix@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/common-path-prefix/-/common-path-prefix-3.0.0.tgz#7d007a7e07c58c4b4d5f433131a19141b29f11e0"
@@ -8425,6 +8430,16 @@ pino-http@^8.2.0:
     pino "^8.0.0"
     pino-std-serializers "^6.0.0"
     process-warning "^2.0.0"
+
+pino-loki@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/pino-loki/-/pino-loki-2.0.3.tgz#9f50f442f21da8bfb6c01d23d9bc19a1a875e849"
+  integrity sha512-nZ9sMaw69TBNwIpGzwbuFXD9Hs/aoYtcYxH4P0y5GAqlhG+kFq+fwgpcd1bv4cuvzb7OlelfpSpANxE5OMtITg==
+  dependencies:
+    axios "^0.27.2"
+    commander "^9.4.0"
+    pino-abstract-transport "^1.0.0"
+    pump "^3.0.0"
 
 pino-pretty@^9.0.1:
   version "9.0.1"
