@@ -70,4 +70,10 @@ export class TodosService {
 
     return true;
   }
+
+  public async flush(): Promise<boolean> {
+    await this.todosRepository.clear();
+
+    return true;
+  }
 }

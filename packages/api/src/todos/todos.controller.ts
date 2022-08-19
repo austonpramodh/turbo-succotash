@@ -11,6 +11,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 import { TodoDto } from './dtos/todo.dto';
 import { ApiResponse, CommonResponseType } from './dtos/Response.dto';
@@ -24,7 +25,10 @@ import { TodosService } from './todos.service';
   version: '1',
 })
 export class TodosController {
-  constructor(private readonly todosService: TodosService) {}
+  constructor(
+    private readonly todosService: TodosService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @ApiResponse({
     model: TodoDto,
@@ -33,6 +37,9 @@ export class TodosController {
   })
   @Get()
   public async getAll(): Promise<CommonResponseType<TodoDto[]>> {
+    const dbUser = this.configService.get<string>('dbUser');
+
+    console.log(dbUser);
     const todos = await this.todosService.getAll();
 
     return {
@@ -84,7 +91,19 @@ export class TodosController {
       success: true,
       data: updatedTodo,
       meta: undefined,
-      message: 'Todo created successfully!',
+      message: 'Todo updated successfully!',
+    };
+  }
+
+  @Delete('/flush')
+  public async flush(): Promise<CommonResponseType> {
+    await this.todosService.flush();
+
+    return {
+      success: true,
+      data: undefined,
+      meta: undefined,
+      message: 'Todo table cleared successfully!!',
     };
   }
 
