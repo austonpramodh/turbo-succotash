@@ -3,9 +3,12 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+import { DelayInterceptor } from './delay.interceptor';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+  });
 
   app.setGlobalPrefix('api', {
     exclude: [{ path: 'docs', method: RequestMethod.GET }],
@@ -34,6 +37,8 @@ async function bootstrap(): Promise<void> {
     defaultVersion: '1',
   });
 
-  await app.listen(3000);
+  app.useGlobalInterceptors(new DelayInterceptor(2000));
+
+  await app.listen(3002);
 }
 bootstrap();
