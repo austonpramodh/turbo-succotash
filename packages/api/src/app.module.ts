@@ -8,19 +8,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
-import { TodosService } from './todos/todos.service';
-import { TodosController } from './todos/todos.controller';
-import configuration from './config/configuration';
 import { configValidator } from './config/config.validation';
+import { LoggerModule } from './logger/logger.module';
 
 const root = path.resolve(__dirname, '..');
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configuration],
       validate: configValidator,
     }),
+    LoggerModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: `${root}/db.sqlite`,
@@ -31,7 +29,7 @@ const root = path.resolve(__dirname, '..');
     }),
     TodosModule,
   ],
-  controllers: [AppController, TodosController],
-  providers: [AppService, TodosService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

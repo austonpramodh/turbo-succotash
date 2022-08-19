@@ -37,9 +37,6 @@ export class TodosController {
   })
   @Get()
   public async getAll(): Promise<CommonResponseType<TodoDto[]>> {
-    const dbUser = this.configService.get<string>('dbUser');
-
-    console.log(dbUser);
     const todos = await this.todosService.getAll();
 
     return {
