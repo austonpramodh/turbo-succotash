@@ -1,6 +1,7 @@
 import { RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Logger } from 'nestjs-pino/Logger';
 
 import { AppModule } from './app.module';
 import { DelayInterceptor } from './delay.interceptor';
@@ -8,7 +9,10 @@ import { DelayInterceptor } from './delay.interceptor';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     cors: true,
+    bufferLogs: true,
   });
+
+  app.useLogger(app.get(Logger));
 
   app.setGlobalPrefix('api', {
     exclude: [{ path: 'docs', method: RequestMethod.GET }],
@@ -37,7 +41,7 @@ async function bootstrap(): Promise<void> {
     defaultVersion: '1',
   });
 
-  app.useGlobalInterceptors(new DelayInterceptor(2000));
+  app.useGlobalInterceptors(new DelayInterceptor(0));
 
   await app.listen(3002);
 }
