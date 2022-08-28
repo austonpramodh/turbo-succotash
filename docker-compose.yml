@@ -6,7 +6,7 @@ services:
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./etc/tempo-local.yaml:/etc/tempo.yaml
-      - ./data/tempo-data:/tmp/tempo
+      - tempo_data:/tmp/tempo
     ports:
       - "14268" # jaeger ingest, Jaeger - Thrift HTTP
       - "14250" # Jaeger - GRPC
@@ -27,7 +27,7 @@ services:
       - JAEGER_SAMPLER_PARAM=1
     volumes:
       - ./etc/loki-local.yaml:/etc/loki/loki-local.yaml
-      - ./data/loki-data:/tmp/loki
+      # - loki_data:/tmp/loki
 
   grafana:
     image: grafana/grafana:8.1.0-ubuntu
@@ -46,3 +46,7 @@ services:
       - tempo
       - loki
       # - volume_exporter
+
+volumes:
+  tempo_data: {}
+  loki_data: {}

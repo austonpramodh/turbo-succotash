@@ -4,5 +4,8 @@
   "workspaces": [
     "packages/*",
     "libs/*"
-  ]
+  ],
+  "resolutions": {
+    "opentelemetry-node-metrics": "^2.0.0"
+  }
 }
