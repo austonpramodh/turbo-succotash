@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export enum Environment {
   Development = 'development',
@@ -19,11 +19,15 @@ export enum LogLevel {
 
 export class EnvironmentVariables {
   @IsEnum(Environment)
-  public NODE_ENV: Environment;
+  public NODE_ENV = Environment.Development;
 
   @IsNumber()
   public PORT: number;
 
   @IsEnum(LogLevel)
   public LOG_LEVEL = LogLevel.DEBUG;
+
+  @IsOptional()
+  @IsString()
+  public LOKI_HOST?: string;
 }

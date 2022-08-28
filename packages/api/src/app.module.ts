@@ -10,8 +10,27 @@ import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
 import { configValidator } from './config/config.validation';
 import { LoggerModule } from './logger/logger.module';
+import { OpenTelemetryModule } from 'nestjs-otel';
 
 const root = path.resolve(__dirname, '..');
+
+const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
+  metrics: {
+    hostMetrics: true, // Includes Host Metrics
+    // FIXME: https://github.com/pragmaticivan/nestjs-otel/issues/151
+    defaultMetrics: true, // Includes Default Metrics
+    apiMetrics: {
+      enable: true, // Includes api metrics
+      timeBuckets: [], // You can change the default time buckets
+      defaultAttributes: {
+        // You can set default labels for api metrics
+        custom: 'label',
+      },
+      ignoreRoutes: ['/favicon.ico'], // You can ignore specific routes (See https://docs.nestjs.com/middleware#excluding-routes for options)
+      ignoreUndefinedRoutes: false, //Records metrics for all URLs, even undefined ones
+    },
+  },
+});
 
 @Module({
   imports: [
@@ -19,6 +38,7 @@ const root = path.resolve(__dirname, '..');
       validate: configValidator,
     }),
     LoggerModule,
+    OpenTelemetryModuleConfig,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: `${root}/db.sqlite`,
