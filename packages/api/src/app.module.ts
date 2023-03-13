@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { OpenTelemetryModule } from 'nestjs-otel';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,7 +11,6 @@ import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
 import { configValidator } from './config/config.validation';
 import { LoggerModule } from './logger/logger.module';
-import { OpenTelemetryModule } from 'nestjs-otel';
 
 const root = path.resolve(__dirname, '..');
 
