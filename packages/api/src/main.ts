@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/order
+import otelSDK from './tracing';
+
 import {
   Logger,
   RequestMethod,
@@ -9,7 +12,6 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger as PinoLogger } from 'nestjs-pino/Logger';
 
-import otelSDK from './tracing';
 import { AppModule } from './app.module';
 import { DelayInterceptor } from './delay.interceptor';
 
@@ -52,7 +54,7 @@ async function bootstrap(): Promise<void> {
     defaultVersion: '1',
   });
 
-  app.useGlobalInterceptors(new DelayInterceptor(3000));
+  app.useGlobalInterceptors(new DelayInterceptor(0));
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');

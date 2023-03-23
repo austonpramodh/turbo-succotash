@@ -12,6 +12,9 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { Logger } from 'nestjs-pino';
+
+import { delay } from '../delay.interceptor';
 
 import { TodoDto } from './dtos/todo.dto';
 import { ApiResponse, CommonResponseType } from './dtos/Response.dto';
@@ -28,6 +31,7 @@ export class TodosController {
   constructor(
     private readonly todosService: TodosService,
     private readonly configService: ConfigService,
+    private readonly logger: Logger,
   ) {}
 
   @ApiResponse({
@@ -37,6 +41,9 @@ export class TodosController {
   })
   @Get()
   public async getAll(): Promise<CommonResponseType<TodoDto[]>> {
+    this.logger.log('TodosController.getAll()');
+
+    await delay(3000);
     const todos = await this.todosService.getAll();
 
     return {

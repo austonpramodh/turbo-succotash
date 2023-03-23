@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-const delay = (time: number): Promise<void> =>
+export const delay = (time: number): Promise<void> =>
   new Promise((res) => setTimeout(res, time));
 
 @Injectable()

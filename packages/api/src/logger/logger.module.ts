@@ -19,20 +19,25 @@ import { Environment, LogLevel } from '../config/config.schema';
 
         const targets: pino.TransportTargetOptions[] = [];
 
-        if (environment === Environment.Development)
-          targets.push({
-            target: 'pino-pretty',
-            options: {
-              colorize: true,
-              levelFirst: true,
-              translateTime: true,
-              // messageFormat: '{level} - {pid} - url:{req.url}',
-            } as PrettyOptions,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            level: loglevel!,
-          });
+        // if (environment === Environment.Development)
+        targets.push({
+          target: 'pino-pretty',
+          options: {
+            colorize: true,
+            levelFirst: true,
+            translateTime: true,
+            // messageFormat: '{level} - {pid} - url:{req.url}',
+          } as PrettyOptions,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          level: loglevel!,
+        });
 
-        if (lokiHostname)
+        if (lokiHostname) {
+          // eslint-disable-next-line no-console
+          console.log('Loki hostname is set to: ' + lokiHostname);
+          /**
+           * TODO: add a shutdown hook to push the remaining logs to Loki before the process exits
+           */
           targets.push({
             target: 'pino-loki',
             options: {
@@ -41,6 +46,7 @@ import { Environment, LogLevel } from '../config/config.schema';
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             level: loglevel!,
           });
+        }
 
         return {
           pinoHttp: {
