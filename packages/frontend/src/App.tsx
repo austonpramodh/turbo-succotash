@@ -1,8 +1,8 @@
-import { SnackbarProvider } from "notistack";
-import React from "react";
+import { SnackbarProvider } from 'notistack';
+import React from 'react';
 
-import "./App.css";
-import TodoList from "./components/TodoList";
+import './App.css';
+import TodoList from './components/TodoList';
 
 function App(): JSX.Element {
   return (

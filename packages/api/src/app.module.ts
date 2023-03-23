@@ -9,8 +9,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/todo.entity';
-import { configValidator } from './config/config.validation';
 import { LoggerModule } from './logger/logger.module';
+import configLoader from './config/config.loader';
 
 const root = path.resolve(__dirname, '..');
 
@@ -18,7 +18,7 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
   metrics: {
     hostMetrics: true, // Includes Host Metrics
     // FIXME: https://github.com/pragmaticivan/nestjs-otel/issues/151
-    defaultMetrics: true, // Includes Default Metrics
+    // defaultMetrics: true, // Includes Default Metrics
     apiMetrics: {
       enable: true, // Includes api metrics
       timeBuckets: [], // You can change the default time buckets
@@ -35,7 +35,8 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
 @Module({
   imports: [
     ConfigModule.forRoot({
-      validate: configValidator,
+      isGlobal: true,
+      load: [configLoader],
     }),
     LoggerModule,
     OpenTelemetryModuleConfig,

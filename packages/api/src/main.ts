@@ -1,10 +1,15 @@
-import otelSDK from './tracing';
-import { Logger, RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  Logger,
+  RequestMethod,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger as PinoLogger } from 'nestjs-pino/Logger';
 
+import otelSDK from './tracing';
 import { AppModule } from './app.module';
 import { DelayInterceptor } from './delay.interceptor';
 
@@ -29,7 +34,7 @@ async function bootstrap(): Promise<void> {
     .setVersion('1.0')
     .addTag('todo')
     .build();
-    // http://172.31.237.201:9464/metrics
+  // http://172.31.237.201:9464/metrics
 
   const document = SwaggerModule.createDocument(app, config);
 
@@ -47,15 +52,15 @@ async function bootstrap(): Promise<void> {
     defaultVersion: '1',
   });
 
-  app.useGlobalInterceptors(new DelayInterceptor(0));
+  app.useGlobalInterceptors(new DelayInterceptor(3000));
 
   const configService = app.get(ConfigService);
-  const port = configService.get("PORT")
-  
+  const port = configService.get('PORT');
 
   await app.listen(port, () => {
-    const logger = new Logger("Main");
-    logger.log(`Listening on port: ${port}`)
+    const logger = new Logger('Main');
+
+    logger.log(`Listening on port: ${port}`);
   });
 }
 bootstrap();

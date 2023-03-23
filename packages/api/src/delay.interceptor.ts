@@ -13,6 +13,10 @@ const delay = (time: number): Promise<void> =>
 export class DelayInterceptor implements NestInterceptor {
   private delayTime: number;
 
+  /**
+   *
+   * @param time delay time in milliseconds
+   */
   constructor(time: number) {
     this.delayTime = time;
   }

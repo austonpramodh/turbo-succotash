@@ -1,4 +1,4 @@
-import { Check, DeleteForever, Edit } from "@mui/icons-material";
+import { Check, DeleteForever, Edit } from '@mui/icons-material';
 import {
   Box,
   Checkbox,
@@ -8,24 +8,24 @@ import {
   IconButton,
   TextField,
   Typography,
-} from "@mui/material";
-import React, { Fragment } from "react";
+} from '@mui/material';
+import React, { Fragment } from 'react';
 
-import { ExtendedTodo } from ".";
+import { ExtendedTodo } from '.';
 
 interface Props {
   todos: ExtendedTodo[];
-  onUpdate: (id: ExtendedTodo["id"], updatedTodo: ExtendedTodo) => void;
-  onDelete: (id: ExtendedTodo["id"]) => void;
-  onEditTodo: (id: ExtendedTodo["id"], editMode: boolean) => void;
+  onUpdate: (id: ExtendedTodo['id'], updatedTodo: ExtendedTodo) => void;
+  onDelete: (id: ExtendedTodo['id']) => void;
+  onEditTodo: (id: ExtendedTodo['id'], editMode: boolean) => void;
   isLoading: boolean;
 }
 
 const TodoView: React.FunctionComponent<{
   todo: ExtendedTodo;
-  onUpdate: (id: ExtendedTodo["id"], updatedTodo: ExtendedTodo) => void;
-  onDelete: (id: ExtendedTodo["id"]) => void;
-  onEditTodo: (id: ExtendedTodo["id"], editMode: boolean) => void;
+  onUpdate: (id: ExtendedTodo['id'], updatedTodo: ExtendedTodo) => void;
+  onDelete: (id: ExtendedTodo['id']) => void;
+  onEditTodo: (id: ExtendedTodo['id'], editMode: boolean) => void;
 }> = ({ todo, onUpdate, onDelete, onEditTodo }) => {
   const [state, setState] = React.useState(todo.name);
 
@@ -33,11 +33,11 @@ const TodoView: React.FunctionComponent<{
     <Box
       sx={{
         p: 2,
-        background: "yellow",
-        textAlign: "left",
-        border: "1px solid black",
-        display: "flex",
-        alignItems: "center",
+        // background: "yellow",
+        textAlign: 'left',
+        border: '1px solid black',
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       {todo.isEditMode ? (
@@ -73,6 +73,7 @@ const TodoView: React.FunctionComponent<{
           <FormControlLabel
             sx={{
               flexGrow: 1,
+              textDecoration: todo.isDone ? 'line-through' : 'none',
             }}
             disabled={todo.isLoading}
             control={
