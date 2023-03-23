@@ -1,3 +1,5 @@
+const prettierConfig = require("./.prettierrc.json");
+
 module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint/eslint-plugin"],
@@ -93,6 +95,14 @@ module.exports = {
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "no-console": "error",
-    "import/no-extraneous-dependencies": ["error"]
+    "import/no-extraneous-dependencies": ["error"],
+    // ----------------- Prettier -----------------
+    "prettier/prettier": [
+      "error",
+      {
+        ...prettierConfig,
+      }
+    ]
+    // ----------------- Prettier -----------------
   }
 };
