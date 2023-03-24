@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useSetState = <T>(
-  initialState: T
+  initialState: T,
 ): [T, (newState: Partial<T> | ((state: T) => T)) => void] => {
   const [state, regularSetState] = useState<T>(initialState);
 
   const setState = (newState: Partial<T> | ((state: T) => T)): void => {
-    if (typeof newState === "function") {
+    if (typeof newState === 'function') {
       regularSetState(newState);
 
       return;

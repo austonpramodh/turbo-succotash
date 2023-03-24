@@ -126,22 +126,24 @@ const ListTodos: React.FunctionComponent<Props> = ({
       </Typography>
 
       {isLoading && <CircularProgress />}
-      <FormGroup>
-        {todos.length === 0 && (
-          <Typography variant="overline">---No Todos Yet!!---</Typography>
-        )}
-        {todos.map((todo) => {
-          return (
-            <TodoView
-              key={todo.id}
-              todo={todo}
-              onDelete={onDelete}
-              onUpdate={onUpdate}
-              onEditTodo={onEditTodo}
-            />
-          );
-        })}
-      </FormGroup>
+      {!isLoading && (
+        <FormGroup>
+          {todos.length === 0 && (
+            <Typography variant="overline">---No Todos Yet!!---</Typography>
+          )}
+          {todos.map((todo) => {
+            return (
+              <TodoView
+                key={todo.id}
+                todo={todo}
+                onDelete={onDelete}
+                onUpdate={onUpdate}
+                onEditTodo={onEditTodo}
+              />
+            );
+          })}
+        </FormGroup>
+      )}
     </Box>
   );
 };

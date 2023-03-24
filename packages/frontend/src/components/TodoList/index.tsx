@@ -1,21 +1,21 @@
 /* eslint-disable1 */
-import { Grid, Paper } from "@mui/material";
-import axios from "axios";
-import { useSnackbar } from "notistack";
-import React, { Fragment } from "react";
-import ReactJson from "react-json-view";
+import { Button, Grid, Paper } from '@mui/material';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
+import React, { Fragment } from 'react';
+import ReactJson from 'react-json-view';
 
-import { apiHost } from "../../utils/constants";
-import useSetState from "../../utils/useSetState";
+import { apiHost } from '../../utils/constants';
+import useSetState from '../../utils/useSetState';
 
-import AddTodoForm from "./AddTodoForm";
-import ListTodos from "./ListTodos";
+import AddTodoForm from './AddTodoForm';
+import ListTodos from './ListTodos';
 
 const styles: Record<string, React.CSSProperties> = {
   Paper: {
     padding: 20,
-    margin: "auto",
-    textAlign: "center",
+    margin: 'auto',
+    textAlign: 'center',
     width: 500,
     marginTop: 16,
   },
@@ -43,7 +43,7 @@ const TodoList: React.FunctionComponent = () => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  React.useEffect(() => {
+  const fetchTodos = async (): Promise<void> => {
     setState({
       isLoading: true,
     });
@@ -65,6 +65,10 @@ const TodoList: React.FunctionComponent = () => {
           isLoading: false,
         });
       });
+  };
+
+  React.useEffect(() => {
+    fetchTodos();
   }, []);
 
   const onSubmitTodo = async (data: { name: string }): Promise<void> => {
@@ -83,19 +87,19 @@ const TodoList: React.FunctionComponent = () => {
       }));
 
       enqueueSnackbar(`Todo "${data?.name}" created successfully!`, {
-        variant: "success",
+        variant: 'success',
       });
     } catch (error) {
       enqueueSnackbar(`Todo "${data?.name}" creation unsuccessful!`, {
-        variant: "error",
+        variant: 'error',
       });
       throw error;
     }
   };
 
   const onUpdateTodo = async (
-    id: Todo["id"],
-    updatedTodo: Todo
+    id: Todo['id'],
+    updatedTodo: Todo,
   ): Promise<void> => {
     const oldTodo = state.todos.find((todo) => todo.id === id);
 
@@ -122,15 +126,15 @@ const TodoList: React.FunctionComponent = () => {
       setState((state) => ({
         ...state,
         todos: state.todos.map((todo) =>
-          todo.id === newTodo.id ? newTodo : todo
+          todo.id === newTodo.id ? newTodo : todo,
         ),
       }));
       enqueueSnackbar(`Todo "${oldTodo?.name}" updated successfully!`, {
-        variant: "success",
+        variant: 'success',
       });
     } catch (error) {
       enqueueSnackbar(`Todo "${oldTodo?.name}" updation unsuccessful!`, {
-        variant: "error",
+        variant: 'error',
       });
 
       setState((state) => ({
@@ -144,7 +148,7 @@ const TodoList: React.FunctionComponent = () => {
     }
   };
 
-  const onEditTodo = (id: Todo["id"], editMode: boolean): void => {
+  const onEditTodo = (id: Todo['id'], editMode: boolean): void => {
     setState((state) => ({
       ...state,
       todos: state.todos.map((todo) => {
@@ -158,7 +162,7 @@ const TodoList: React.FunctionComponent = () => {
     }));
   };
 
-  const onDeleteTodo = async (id: Todo["id"]): Promise<void> => {
+  const onDeleteTodo = async (id: Todo['id']): Promise<void> => {
     const todoToBeDeleted = state.todos.find((todo) => todo.id === id);
 
     try {
@@ -184,15 +188,15 @@ const TodoList: React.FunctionComponent = () => {
       }));
 
       enqueueSnackbar(`Todo "${todoToBeDeleted?.name}" deleted successfully!`, {
-        variant: "success",
+        variant: 'success',
       });
     } catch (error) {
       // Toastify error
       enqueueSnackbar(
         `Todo "${todoToBeDeleted?.name}" deletion unsuccessful!`,
         {
-          variant: "error",
-        }
+          variant: 'error',
+        },
       );
     } finally {
       setState((state) => ({
@@ -212,6 +216,13 @@ const TodoList: React.FunctionComponent = () => {
         <Grid item xs={12}>
           <Paper style={styles.Paper}>
             <AddTodoForm onSubmitTodo={onSubmitTodo} />
+            <Button
+              variant="contained"
+              disabled={state.isLoading}
+              onClick={fetchTodos}
+            >
+              Refresh State
+            </Button>
           </Paper>
           <Paper style={styles.Paper}>
             <ListTodos

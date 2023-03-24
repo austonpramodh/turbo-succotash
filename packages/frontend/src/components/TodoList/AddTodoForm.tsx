@@ -1,10 +1,10 @@
-import { Button, TextField, Typography } from "@mui/material";
-import React, { Fragment } from "react";
-import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, TextField, Typography } from '@mui/material';
+import React, { Fragment } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import useSetState from "../../utils/useSetState";
+import useSetState from '../../utils/useSetState';
 
 type IForm = {
   name: string;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const schema = z.object({
-  name: z.string().min(1, { message: "Required" }),
+  name: z.string().min(1, { message: 'Required' }),
 });
 
 const AddTodoForm: React.FunctionComponent<Props> = ({ onSubmitTodo }) => {
@@ -46,7 +46,7 @@ const AddTodoForm: React.FunctionComponent<Props> = ({ onSubmitTodo }) => {
     } catch (error) {
       const typedError = error as Error;
 
-      setError("name", {
+      setError('name', {
         message: typedError.message,
       });
     } finally {
@@ -66,12 +66,12 @@ const AddTodoForm: React.FunctionComponent<Props> = ({ onSubmitTodo }) => {
       >
         Add new Todo
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex" }}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex' }}>
         <Controller
           name="name"
           control={control}
           defaultValue=""
-          rules={{ required: "Todo name is required!" }}
+          rules={{ required: 'Todo name is required!' }}
           render={({ field: { onChange, value } }): JSX.Element => (
             <TextField
               fullWidth
@@ -81,7 +81,7 @@ const AddTodoForm: React.FunctionComponent<Props> = ({ onSubmitTodo }) => {
               value={value}
               onChange={onChange}
               error={!!errors.name}
-              helperText={errors.name?.message || " "}
+              helperText={errors.name?.message || ' '}
             />
           )}
         />
@@ -89,7 +89,7 @@ const AddTodoForm: React.FunctionComponent<Props> = ({ onSubmitTodo }) => {
           type="submit"
           variant="contained"
           color="primary"
-          style={{ width: "10%", margin: "auto", marginLeft: "8px" }}
+          style={{ width: '10%', margin: 'auto', marginLeft: '8px' }}
           disabled={state.isLoading}
         >
           Add
