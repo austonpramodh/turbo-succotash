@@ -57,8 +57,9 @@ const otelSDK = new NodeSDK({
   ],
   resource: Resource.default().merge(
     new Resource({
-      [SemanticResourceAttributes.SERVICE_NAME]: 'my-service',
-      [SemanticResourceAttributes.SERVICE_VERSION]: '1.0.0',
+      [SemanticResourceAttributes.SERVICE_NAME]: '@turbo-succotash/api',
+      [SemanticResourceAttributes.SERVICE_VERSION]:
+        process.env.npm_package_version || '0.0.0',
     }),
   ),
 });
