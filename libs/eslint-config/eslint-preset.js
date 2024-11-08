@@ -56,7 +56,6 @@ export default [
         },
       ],
       "@typescript-eslint/interface-name-prefix": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "prefer-const": "error",
       "prefer-rest-params": "error",
