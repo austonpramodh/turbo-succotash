@@ -1,3 +1,18 @@
-const eslintrc = require('./eslint-preset');
+// import eslintTypescriptParser from "@typescript-eslint/parser"
 
-module.exports = eslintrc;
+// export default [
+//   {
+//     files: ["**/*.ts"],
+//     languageOptions: {
+//       parser: eslintTypescriptParser
+//     },
+//     rules: {
+//       "semi": "error",
+//       "no-unused-vars": "error"
+//     }
+//   }
+// ];
+
+import eslintPreset from "./eslint-preset.js";
+
+export default eslintPreset;
