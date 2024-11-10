@@ -1,0 +1,16 @@
+{
+  "extends": "@turbo-succotash-libs/tsconfig/base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+    "./plugins/**/*",
+    "./typings/**/*",
+    "./dist/**/*"
+  ]
+}

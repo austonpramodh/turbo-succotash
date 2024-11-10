@@ -1,11 +1,22 @@
 import { RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Logger } from 'nestjs-pino';
+import { otelSDK } from '@turbo-succotash-libs/observability';
 
 import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  await otelSDK.start();
+  // eslint-disable-next-line no-console
+  console.log('Started OTEL SDK');
+
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+
+  app.useLogger(app.get(Logger));
+
+  app.enableShutdownHooks();
+  app.enableCors({ origin: '*' });
 
   app.setGlobalPrefix('api', {
     exclude: [{ path: 'docs', method: RequestMethod.GET }],
