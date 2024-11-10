@@ -12,7 +12,6 @@ export interface CommonResponseType<T = undefined> {
   message: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export const ApiResponse = <TModel extends Type<unknown>>({
   model,
   type,
