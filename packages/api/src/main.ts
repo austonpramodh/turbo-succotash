@@ -2,9 +2,9 @@ import { RequestMethod, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from 'nestjs-pino';
+import { otelSDK } from '@turbo-succotash-libs/observability';
 
 import { AppModule } from './app.module';
-import otelSDK from './instrumentation';
 
 async function bootstrap(): Promise<void> {
   await otelSDK.start();

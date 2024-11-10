@@ -1,19 +1,9 @@
 import { Module } from '@nestjs/common';
-// import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
-  imports: [
-    // PrometheusModule.register({
-    //   defaultLabels: {
-    //     app: 'nextjs_app',
-    //   },
-    //   path: '/metrics',
-    // }),
-  ],
+  imports: [],
   controllers: [],
   providers: [],
-  exports: [
-    // PrometheusModule
-  ],
+  exports: [],
 })
 export class CommonModule {}

@@ -1,0 +1,44 @@
+{
+  "name": "@turbo-succotash-libs/observability",
+  "version": "0.0.0",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist/*"
+  ],
+  "type": "commonjs",
+  "scripts": {
+    "build": "yarn workspace @turbo-succotash-libs/observability build:cjs && yarn workspace @turbo-succotash-libs/observability build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "build:esm": "tsc -p tsconfig.esm.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "devDependencies": {
+    "@turbo-succotash-libs/eslint-config": "*",
+    "@turbo-succotash-libs/tsconfig": "*"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.52.1",
+    "@opentelemetry/context-async-hooks": "^1.27.0",
+    "@opentelemetry/core": "^1.27.0",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.54.2",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.54.2",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.54.2",
+    "@opentelemetry/propagator-b3": "^1.27.0",
+    "@opentelemetry/sdk-metrics": "^1.27.0",
+    "@opentelemetry/sdk-node": "^0.54.2",
+    "@opentelemetry/sdk-trace-base": "^1.27.0",
+    "pino": "^9.5.0",
+    "pino-opentelemetry-transport": "^1.0.1",
+    "pino-pretty": "^12.1.0"
+  }
+}

@@ -1,25 +1,25 @@
-import * as process from 'process';
+import process from "process";
 
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { NodeSDK } from '@opentelemetry/sdk-node';
-import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
+import { NodeSDK } from "@opentelemetry/sdk-node";
+import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import {
   CompositePropagator,
   W3CTraceContextPropagator,
   W3CBaggagePropagator,
-} from '@opentelemetry/core';
-import { B3InjectEncoding, B3Propagator } from '@opentelemetry/propagator-b3';
-import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
-import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
+} from "@opentelemetry/core";
+import { B3InjectEncoding, B3Propagator } from "@opentelemetry/propagator-b3";
+import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
+import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
+import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 // Configure OTLP metrics exporter
 const otlpMetricsExporter = new OTLPMetricExporter({
-  url: 'http://localhost:4318/v1/metrics',
+  url: "http://localhost:4318/v1/metrics",
 });
 
 const traceExporter = new OTLPTraceExporter({
-  url: 'http://localhost:4318/v1/traces',
+  url: "http://localhost:4318/v1/traces",
 });
 
 // TODO: replace pino-opentelemetry-transport with the following!
@@ -30,7 +30,7 @@ const traceExporter = new OTLPTraceExporter({
 
 const spanProcessor = new BatchSpanProcessor(traceExporter);
 
-const otelSDK = new NodeSDK({
+export const otelSDK = new NodeSDK({
   metricReader: new PeriodicExportingMetricReader({
     exporter: otlpMetricsExporter,
     exportIntervalMillis: 10000,
@@ -51,17 +51,16 @@ const otelSDK = new NodeSDK({
   }),
 });
 
-export default otelSDK;
 // You can also use the shutdown method to gracefully shut down the SDK before process shutdown
 // or on some operating system signal.
-process.on('SIGTERM', () => {
+process.on("SIGTERM", () => {
   otelSDK
     .shutdown()
     .then(
       // eslint-disable-next-line no-console
-      () => console.log('SDK shut down successfully'),
+      () => console.log("SDK shut down successfully"),
       // eslint-disable-next-line no-console
-      (err) => console.log('Error shutting down SDK', err),
+      (err) => console.log("Error shutting down SDK", err)
     )
     .finally(() => process.exit(0));
 });
