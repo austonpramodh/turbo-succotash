@@ -25,6 +25,7 @@
   "devDependencies": {
     "@turbo-succotash-libs/eslint-config": "*",
     "@turbo-succotash-libs/tsconfig": "*",
+    "eslint": "^9.14.0",
     "ts-node": "^10.9.2"
   },
   "dependencies": {
@@ -43,7 +44,7 @@
     "@opentelemetry/semantic-conventions": "^1.27.0",
     "pino": "^9.5.0",
     "pino-opentelemetry-transport": "^1.0.1",
-    "pino-pretty": "^12.1.0",
-    "uuid": "^11.0.2"
+    "pino-pretty": "^13.0.0",
+    "uuid": "^11.0.3"
   }
 }
