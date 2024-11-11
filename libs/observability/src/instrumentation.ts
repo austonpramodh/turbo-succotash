@@ -13,15 +13,19 @@ import { B3InjectEncoding, B3Propagator } from "@opentelemetry/propagator-b3";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
-import { SemanticResourceAttributes, ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from "@opentelemetry/semantic-conventions";
-import { Resource } from '@opentelemetry/resources'
-import { v4 as uuidv4 } from 'uuid';
-import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
+import {
+  SemanticResourceAttributes,
+  ATTR_SERVICE_NAME,
+  ATTR_SERVICE_VERSION,
+} from "@opentelemetry/semantic-conventions";
+import { Resource } from "@opentelemetry/resources";
+import { v4 as uuidv4 } from "uuid";
+import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 
 export const OTEL_SERVICE_RESOURCE = new Resource({
-  [ATTR_SERVICE_NAME]: 'otel-express-node',
-  [ATTR_SERVICE_VERSION]: '1.0.0',
-  [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: uuidv4()
+  [ATTR_SERVICE_NAME]: "otel-express-node",
+  [ATTR_SERVICE_VERSION]: "1.0.0",
+  [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: uuidv4(),
 });
 
 // Configure OTLP metrics exporter
@@ -34,7 +38,7 @@ const traceExporter = new OTLPTraceExporter({
 });
 
 const logExporter = new OTLPLogExporter({
-  url: 'http://localhost:4318/v1/logs',
+  url: "http://localhost:4318/v1/logs",
 });
 
 const spanProcessor = new BatchSpanProcessor(traceExporter);
@@ -48,7 +52,7 @@ export const otelSDK = new NodeSDK({
   spanProcessor: spanProcessor,
   logRecordProcessor: new logs.SimpleLogRecordProcessor(
     // new logs.ConsoleLogRecordExporter()
-    logExporter
+    logExporter,
   ),
   contextManager: new AsyncLocalStorageContextManager(),
   instrumentations: [getNodeAutoInstrumentations()],
@@ -73,7 +77,7 @@ process.on("SIGTERM", () => {
       // eslint-disable-next-line no-console
       () => console.log("SDK shut down successfully"),
       // eslint-disable-next-line no-console
-      (err) => console.log("Error shutting down SDK", err)
+      (err) => console.log("Error shutting down SDK", err),
     )
     .finally(() => process.exit(0));
 });

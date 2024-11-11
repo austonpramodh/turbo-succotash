@@ -7,7 +7,7 @@
   "files": [
     "dist/*"
   ],
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "build": "yarn workspace @turbo-succotash-libs/observability build:cjs && yarn workspace @turbo-succotash-libs/observability build:esm",
     "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",

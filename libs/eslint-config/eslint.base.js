@@ -1,31 +1,42 @@
-import eslintTypescriptParser from "@typescript-eslint/parser"
-import eslintTypescriptPlugin from "@typescript-eslint/eslint-plugin"
-import importPlugin from 'eslint-plugin-import';
+import eslintTypescriptParser from "@typescript-eslint/parser";
+import eslintTypescriptPlugin from "@typescript-eslint/eslint-plugin";
+import importPlugin from "eslint-plugin-import";
 import globals from "globals";
+import js from "@eslint/js";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default [
-  // Parser Import
-  {
-    languageOptions: {
-      parser: eslintTypescriptParser
-    }
-  },
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
-  {
-    files: ["**/*.ts"],
-    plugins: {
-      eslintTypescriptPlugin: eslintTypescriptPlugin
-    }
-  },
   {
     languageOptions: {
       globals: {
         ...globals.node,
-        myCustomGlobal: "readonly"
-      }
-    }
+        myCustomGlobal: "readonly",
+      },
+    },
   },
+  js.configs.recommended,
+  {
+    files: ["**/*.js"],
+    rules: {
+      "no-unused-vars": "error",
+      "no-undef": "error",
+      quotes: ["error", "double"],
+    },
+  },
+  // Typescript parser and plugin
+  {
+    files: ["**/*.ts"],
+    languageOptions: {
+      parser: eslintTypescriptParser,
+    },
+    plugins: {
+      eslintTypescriptPlugin: eslintTypescriptPlugin,
+    },
+  },
+  // Import Sorting plugin
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
+  // Typescript rules!
   {
     files: ["**/*.ts"],
     rules: {
@@ -101,7 +112,20 @@ export default [
       // "@typescript-eslint/prefer-namespace-keyword": "error",
       // "@typescript-eslint/type-annotation-spacing": "error",
       "no-console": "error",
-      "import/no-extraneous-dependencies": ["error"]
-    }
+      "import/no-extraneous-dependencies": ["error"],
+    },
+  },
+  // Prettier Config!
+  eslintPluginPrettierRecommended,
+  {
+    rules: {
+      "prettier/prettier": [
+        "error",
+        {
+          singleQuote: false,
+          parser: "flow",
+        },
+      ],
+    },
   },
 ];

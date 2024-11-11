@@ -1,18 +1,3 @@
-// import eslintTypescriptParser from "@typescript-eslint/parser"
+import eslintBase from "./eslint.base.js";
 
-// export default [
-//   {
-//     files: ["**/*.ts"],
-//     languageOptions: {
-//       parser: eslintTypescriptParser
-//     },
-//     rules: {
-//       "semi": "error",
-//       "no-unused-vars": "error"
-//     }
-//   }
-// ];
-
-import eslintPreset from "./eslint-preset.js";
-
-export default eslintPreset;
+export default eslintBase;
